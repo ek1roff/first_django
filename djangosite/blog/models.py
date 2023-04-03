@@ -2,6 +2,22 @@ from django.db import models
 from django.urls import reverse
 
 
+# class Menu(models.Model):
+#     title = models.CharField(max_length=100, db_index=True, verbose_name='Меню')
+#     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
+#
+#     def __str__(self):
+#         return self.title
+#
+#     def get_absolute_url(self):
+#         return reverse('menu', kwargs={'menu_slug': self.slug})
+#
+#     class Meta:
+#         verbose_name = 'Меню'
+#         verbose_name_plural = 'Меню'
+#         ordering = ('id',)
+
+
 class Blog(models.Model):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
