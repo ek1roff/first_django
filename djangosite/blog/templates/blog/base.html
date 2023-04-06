@@ -37,13 +37,22 @@
   <div class="row align-items-start">
       <div class="col-2">
         {% block sidebar %}
-
+<p> </p>
         {% if cat_selected == 0 %}
            <div class="selected">Все категории</div>
         {% else %}
            <div><a href="{% url 'home' %}">Все категории</a></div>
         {% endif %}
-        {% show_categories 'name' cat_selected %}
+
+        {% for c in cats %}
+          {% if c.blog__count > 0 %}
+              {% if c.pk == cat_selected %}
+                <div class="selected">{{c.name}}</div>
+              {% else %}
+                <div><a href="{{ c.get_absolute_url }}">{{c.name}}</a></div>
+              {% endif %}
+          {% endif %}
+        {% endfor %}
 
         {% endblock sidebar %}
       </div>
@@ -56,4 +65,11 @@
   </div>
 </div>
 </body>
+<footer>
+    <nav class="navbar sticky-bottom bg-body-tertiary">
+  <div class="container-fluid">
+        <a class="navbar-brand" href="#">Контакты: 8-800-555-35-35</a>
+  </div>
+</nav>
+</footer>
 </html>

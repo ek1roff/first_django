@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 
 from django.urls import path, include
-from blog.views import index
+from blog.views import *
 from djangosite import settings
 from django.conf.urls.static import static
 

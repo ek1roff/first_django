@@ -2,10 +2,11 @@
 
 {% block content %}
 <h1>{{post.title}}</h1>
-
+<div class="container px-4 text-justify">
 {% if post.photo %}
-<p><img class="img-article-left" src="{{post.photo.url}}"></p>
+<p><img class="img-fluid float-start" width="320" height="320" src="{{post.photo.url}}"></p>
 {% endif %}
 
 {{post.content|linebreaks}}
+</div>
 {% endblock %}
