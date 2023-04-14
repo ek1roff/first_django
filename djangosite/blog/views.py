@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import AuthenticationForm
 
 from .models import *
 from .forms import *
@@ -66,8 +68,8 @@ def contact(request):
     return HttpResponse('Контакты')
 
 
-def login(request):
-    return HttpResponse('Войти')
+# def login(request):
+#     return HttpResponse('Войти')
 
 
 def pageNotFound(request, exception):
@@ -131,3 +133,24 @@ class BlogCategory(DataMixin,ListView):
 #     }
 #
 #     return render(request, 'blog/index.html', context=context)
+
+
+class RegisterUser(DataMixin, CreateView):
+    form_class = RegisterUserForm
+    template_name = 'blog/register.html'
+    success_url = reverse_lazy('login')
+ 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Регистрация")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class LoginUser(DataMixin, LoginView):
+    form_class = AuthenticationForm
+    template_name = 'blog/login.html'
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Авторизация')
+        return dict(list(context.items()) + list(c_def.items()))
