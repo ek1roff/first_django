@@ -150,7 +150,7 @@ class LoginUser(DataMixin, LoginView):
     form_class = AuthenticationForm
     template_name = 'blog/login.html'
 
-    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Авторизация')
         return dict(list(context.items()) + list(c_def.items()))
