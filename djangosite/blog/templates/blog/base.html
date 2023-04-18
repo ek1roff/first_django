@@ -29,7 +29,7 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
             {% if request.user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="#">{{user.username}}</a>
+              <a class="nav-link" href="{% url 'userpage' %}">{{user.username}}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
@@ -69,6 +69,7 @@
                 {% else %}
                    <li><a href="{% url 'home' %}" class="bd-links-link d-inline-block rounded">Все категории</a></li>
                 {% endif %}
+                    <p></p>
 
                 {% for c in cats %}
                   {% if c.blog__count > 0 %}
@@ -78,7 +79,9 @@
                         <li><a href="{{ c.get_absolute_url }}" class="bd-links-link d-inline-block rounded">{{c.name}}</a></li>
                       {% endif %}
                   {% endif %}
+                    <p></p>
                 {% endfor %}
+
                 </ul>
                 </nav>
                </div>
@@ -130,10 +133,15 @@
 </div>
 </body>
 <!--FOOTER.begin-->
-<footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiar">
-  <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
-    <a class="navbar-brand" href="#">Контакты: 8-800-555-35-35</a>
+<footer class="bd-footer py-2 y-md-3 mt-35 bg-body-tertiar">
+    <div class="row">
+  <div class="col-4">
+    <a class="navbar-brand" href="#">Телефон: 8-800-555-35-35</a>
   </div>
+  <div class="col">
+    <a class="navbar-brand" href="#">Email: afftar@email.com</a>
+  </div>
+        </div>
 </footer>
 <!--FOOTER.end-->
 </html>

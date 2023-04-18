@@ -11,6 +11,7 @@ import debug_toolbar
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
+    path('captcha/', include('captcha.urls')),
 ]
 
 if settings.DEBUG:

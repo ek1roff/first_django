@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DeleteView, CreateView
+from django.views.generic import ListView, DeleteView, CreateView, UpdateView, DetailView, FormView
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
@@ -65,8 +65,21 @@ class AddPage(DataMixin, LoginRequiredMixin, CreateView):
 #     return render(request, 'blog/addpage.html', {'form': form, 'menu': menu, 'title': 'Добавление статьи'})
 
 
-def contact(request):
-    return HttpResponse('Контакты')
+# def contact(request):
+#     return HttpResponse('Контакты')
+class ContactFormView(DataMixin, FormView):
+    form_class = ContactForm
+    template_name = 'blog/contact.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Обратная связь')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return redirect('home')
 
 
 # def login(request):
@@ -102,7 +115,7 @@ class ShowPost(DataMixin, DeleteView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-class BlogCategory(DataMixin,ListView):
+class BlogCategory(DataMixin, ListView):
 
     model = Blog
     template_name = 'blog/index.html'
@@ -137,7 +150,7 @@ class BlogCategory(DataMixin,ListView):
 #     return render(request, 'blog/index.html', context=context)
 
 
-class RegisterUser(DataMixin, CreateView):
+class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'blog/register.html'
     success_url = reverse_lazy('login')
@@ -169,3 +182,10 @@ class LoginUser(DataMixin, LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+class UserPage(ListView):
+    model = User
+    template_name = 'blog/user_page.html'
+    context_object_name = 'all_users'
+
