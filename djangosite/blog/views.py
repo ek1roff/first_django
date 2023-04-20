@@ -150,7 +150,7 @@ class BlogCategory(DataMixin, ListView):
 #     return render(request, 'blog/index.html', context=context)
 
 
-class RegisterUser(CreateView):
+class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUserForm
     template_name = 'blog/register.html'
     success_url = reverse_lazy('login')

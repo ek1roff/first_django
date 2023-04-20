@@ -29,7 +29,7 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
             {% if request.user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'userpage' %}">{{user.username}}</a>
+              <a class="nav-link" href="{% url 'home' %}">{{user.username}}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
@@ -133,15 +133,20 @@
 </div>
 </body>
 <!--FOOTER.begin-->
-<footer class="bd-footer py-2 y-md-3 mt-35 bg-body-tertiar">
-    <div class="row">
-  <div class="col-4">
-    <a class="navbar-brand" href="#">Телефон: 8-800-555-35-35</a>
+<footer>
+<nav class="navbar sticky-bottom bg-body-tertiary">
+     <div class="container-fluid">
+  <div class="row">
+  <div class="col-6">
+
   </div>
   <div class="col">
-    <a class="navbar-brand" href="#">Email: afftar@email.com</a>
+
   </div>
-        </div>
+  </div>
+     </div>
+</nav>
 </footer>
+
 <!--FOOTER.end-->
 </html>
